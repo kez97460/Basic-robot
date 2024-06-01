@@ -11,4 +11,3 @@ This project aims to be a simple, small, low power robot. It will contain :
   - DC Motor driver
   - I2C OLED display
 - finalize and test pinout
-- 
