@@ -10,29 +10,29 @@
 // Motors
 #define PWM_L D0
 #define PWM_R D1
-#define DIR_L 
-#define DIR_R
+#define DIR_L D9
+#define DIR_R D10
 
 // ToF sensors
-#define XSDN1
-#define XSDN2
+#define XSDN1 D2 
+#define XSDN2 D3 
 
 // UART1 
-#define UART1_RX
-#define UART1_TX
+#define UART1_RX D4 
+#define UART1_TX D5
 
 // Servo
-#define PWM_SERVO
+#define PWM_SERVO D6 
 
 // I2C
-#define I2C3_SDA
-#define I2C3_SCL
+#define I2C3_SDA D12
+#define I2C3_SCL A6
 
 // Switches
-#define SW0 
-#define SW1
-#define SW2
-#define SW3
-#define START
+#define SW0 A0
+#define SW1 A1 
+#define SW2 A3
+#define SW3 A4 
+#define START D13
 
 #endif /* PINS_H */
