@@ -1,4 +1,4 @@
-# Project Krie~~k~~gBot
+# Project BAR
 
 ## liens amazon
 
