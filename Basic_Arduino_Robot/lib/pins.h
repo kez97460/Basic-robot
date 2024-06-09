@@ -1,3 +1,9 @@
+/**
+ * @file pins.h
+ * @author Kezia Marcou
+ * @brief Pinout of the MCU. Defines custom pin names used everywhere. 
+ * Do not change the names of the macros. 
+ */
 #ifndef PINS_H
 #define PINS_H
 
