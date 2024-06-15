@@ -14,6 +14,7 @@ public:
     ~DipSwitch();
 
     int8_t getState(uint32_t index);
+    uint32_t getStatesAsBinary();
 };
 
 

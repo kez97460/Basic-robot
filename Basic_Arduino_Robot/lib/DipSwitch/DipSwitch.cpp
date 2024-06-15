@@ -1,4 +1,4 @@
-#include "DipSwitch.h"
+#include "DipSwitch.hpp"
 
 /**
  * @brief Construct a new Dip Switch object and initializes pins
@@ -42,4 +42,19 @@ int8_t DipSwitch::getState(uint32_t index)
     }
     
     return (1 - digitalRead(_pins[index]));
+}
+
+/**
+ * @brief Get the state of all switches as a binary value. The switch at index 0 corresponds to the LSB.
+ * 
+ * @return uint32_t 
+ */
+uint32_t DipSwitch::getStatesAsBinary()
+{
+    uint32_t res = 0;
+    for (uint8_t i = 0; i < _pin_count; i++)
+    {
+        res += digitalRead(_pins[i]) << i;
+    }
+    return res;
 }
