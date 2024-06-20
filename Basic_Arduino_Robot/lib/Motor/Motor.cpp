@@ -7,12 +7,12 @@ void Motor::update()
         return; // TODO: ERROR VALUE ?? 
     }
 
-    if (_direction == FORWARD)
+    if (_direction == MOTOR_FORWARD)
     {
         _timer_bwd->setPWM(_channel_bwd, _pwm_bwd_pin, _frequency_hz, 0);
         _timer_fwd->setPWM(_channel_fwd, _pwm_fwd_pin, _frequency_hz, _duty_cycle_percent);
     }
-    else // _direction == BACKWARD
+    else // _direction == MOTOR_BACKWARD
     {
         _timer_bwd->setPWM(_channel_bwd, _pwm_bwd_pin, _frequency_hz, _duty_cycle_percent);
         _timer_fwd->setPWM(_channel_fwd, _pwm_fwd_pin, _frequency_hz, 0); 
@@ -51,6 +51,13 @@ void Motor::begin()
     update();
 }
 
+void Motor::begin(pin_t pwm_forward, pin_t pwm_backward)
+{
+    _pwm_fwd_pin = pwm_forward;
+    _pwm_bwd_pin = pwm_backward;
+    begin();
+}
+
 void Motor::end()
 {
     if(_timer_bwd)
@@ -81,7 +88,7 @@ void Motor::setDutyCycle(uint8_t duty_cycle_percent)
     update();
 }
 
-void Motor::setMovement(MotorDirection_t dir = FORWARD, uint8_t duty_cycle_percent)
+void Motor::setMovement(uint8_t duty_cycle_percent, MotorDirection_t dir)
 {
     setDirection(dir);
     setPwmFrequency(duty_cycle_percent);

@@ -2,7 +2,15 @@
 #define ROBOT_H
 
 #include <Arduino.h>
+#include <Servo.h>
+
 #include "config.h"
+
+#include "Movement.hpp"
+#include "DipSwitch.hpp"
+/// TODO: add ToF
+/// TODO: add screen
+/// TODO: add HC-06
 
 class Robot
 {

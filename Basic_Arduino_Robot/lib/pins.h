@@ -14,10 +14,10 @@
 #define UART2_TX A7
 
 // Motors
-#define PWM_L D0
-#define PWM_R D1
-#define DIR_L D9
-#define DIR_R D10
+#define PWM_L_FWD D0
+#define PWM_L_BWD D1
+#define PWM_R_FWD D9
+#define PWM_R_BWD D10
 
 // ToF sensors
 #define XSDN1 D2 

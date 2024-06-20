@@ -6,8 +6,8 @@
 
 enum MotorDirection_t
 {
-    FORWARD,
-    BACKWARD
+    MOTOR_FORWARD,
+    MOTOR_BACKWARD
 };
 
 class Motor
@@ -34,6 +34,7 @@ public:
     Motor(pin_t pwm_forward = 0, pin_t pwm_backward = 0);
     ~Motor();
 
+    void begin(pin_t pwm_forward, pin_t pwm_backward);
     void begin();
     void end();
 
@@ -41,7 +42,7 @@ public:
 
     void setDirection(MotorDirection_t dir);
     void setDutyCycle(uint8_t duty_cycle_percent = 0);
-    void setMovement(MotorDirection_t dir = FORWARD, uint8_t duty_cycle_percent = 0);
+    void setMovement(uint8_t duty_cycle_percent, MotorDirection_t dir = MOTOR_FORWARD);
     void stop();
 };
 
