@@ -12,17 +12,23 @@ void setup()
     while (!Serial)
         ;
 
+    Serial.println("Serial OK");
     left_motor.begin();
     right_motor.begin();
 }
 
 void loop()
 {
-    for (uint32_t i = 0; i <= 100; i++)
+    for (uint32_t i = 100; i > 0; i--)
     {
         Serial.printf("PWM at %d%%\n", i);
         left_motor.setMovement(i, MOTOR_FORWARD);
         right_motor.setMovement(i, MOTOR_BACKWARD);
         delay(200);
     }
+
+    Serial.println("Stop");
+    left_motor.stop();
+    right_motor.stop();
+    delay(2000);
 }
