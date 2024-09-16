@@ -8,6 +8,9 @@ Motor right_motor(PWM_R_FWD, PWM_R_BWD);
 
 void setup()
 {
+    pinMode(START, OUTPUT);
+    digitalWrite(START, 1);
+
     Serial.begin(115200);
     while (!Serial)
         ;
@@ -15,6 +18,7 @@ void setup()
     Serial.println("Serial OK");
     left_motor.begin();
     right_motor.begin();
+    left_motor.setMovement(50, MOTOR_FORWARD);
 }
 
 void loop()

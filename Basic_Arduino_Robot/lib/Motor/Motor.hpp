@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include "config.h"
 
+#define PWM_PERCENT_TO_VALUE(pwm) ((int) (pwm * 255) / 100)
+
 enum MotorDirection_t
 {
     MOTOR_FORWARD,

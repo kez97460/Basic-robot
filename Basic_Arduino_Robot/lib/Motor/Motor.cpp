@@ -1,5 +1,9 @@
 #include "Motor.hpp"
 
+/**
+ * @brief update the output to the motor to account for changes in the variables
+ * 
+ */
 void Motor::update()
 {
     if (_timer_fwd == nullptr || _timer_bwd == nullptr)
@@ -19,10 +23,18 @@ void Motor::update()
     }
 }
 
-Motor::Motor(pin_t dir, pin_t pwm)
+/**
+ * @brief Construct a new Motor:: Motor object using the associated pins
+ * 
+ * @param pwm_fwd pin corresponding to forward rotation
+ * @param pwm_bwd pin corresponding to backward rotation
+ */
+Motor::Motor(pin_t pwm_fwd, pin_t pwm_bwd)
 {
     _frequency_hz = 10000;
     _duty_cycle_percent = 0;
+    _pwm_bwd_pin = pwm_bwd;
+    _pwm_fwd_pin = pwm_fwd;
 }
 
 Motor::~Motor()
@@ -30,6 +42,10 @@ Motor::~Motor()
     end();
 }
 
+/**
+ * @brief Initialize all values to begin using the motor
+ * 
+ */
 void Motor::begin()
 {
     TIM_TypeDef *instance_fwd = (TIM_TypeDef *) pinmap_peripheral(digitalPinToPinName(_pwm_fwd_pin), PinMap_PWM);
@@ -39,6 +55,7 @@ void Motor::begin()
     _channel_bwd = STM_PIN_CHANNEL(pinmap_function(digitalPinToPinName(_pwm_bwd_pin), PinMap_PWM));
 
     _timer_fwd = new HardwareTimer(instance_fwd);
+
     if (instance_bwd != instance_fwd)
     {
         _timer_bwd = new HardwareTimer(instance_bwd);
@@ -51,13 +68,24 @@ void Motor::begin()
     update();
 }
 
+/**
+ * @brief Set the pins and initialize all values to begin using the motor
+ * 
+ * @param pwm_forward pin corresponding to forward rotation
+ * @param pwm_backward pin corresponding to backward rotation
+ */
 void Motor::begin(pin_t pwm_forward, pin_t pwm_backward)
 {
     _pwm_fwd_pin = pwm_forward;
     _pwm_bwd_pin = pwm_backward;
+
     begin();
 }
 
+/**
+ * @brief De-initialize the motor
+ * 
+ */
 void Motor::end()
 {
     if(_timer_bwd)
@@ -70,30 +98,55 @@ void Motor::end()
     }
 }
 
+/**
+ * @brief Set the frequency used for the PWM
+ * 
+ * @param frequency_hz frequency in Hz (default : 10kHz)
+ */
 void Motor::setPwmFrequency(uint32_t frequency_hz)
 {
     _frequency_hz = frequency_hz;
     update();
 }
 
+/**
+ * @brief Set the direction of the movement
+ * 
+ * @param dir MOTOR_FORWARD or MOTOR_BACKWARD (default: MOTOR_FORWARD)
+ */
 void Motor::setDirection(MotorDirection_t dir)
 {
     _direction = dir;
     update();
 }
 
+/**
+ * @brief Set duty cycle for the motor
+ * 
+ * @param duty_cycle_percent duty cycle in percentage (default: 0), motor may not move with low values...
+ */
 void Motor::setDutyCycle(uint8_t duty_cycle_percent)
 {
     _duty_cycle_percent = duty_cycle_percent;
     update();
 }
 
+/**
+ * @brief Sets both direction and duty cycle
+ * 
+ * @param duty_cycle_percent duty cycle in percentage (default: 0), motor may not move with low values...
+ * @param dir MOTOR_FORWARD or MOTOR_BACKWARD (default: MOTOR_FORWARD)
+ */
 void Motor::setMovement(uint8_t duty_cycle_percent, MotorDirection_t dir)
 {
     setDirection(dir);
-    setPwmFrequency(duty_cycle_percent);
+    setDutyCycle(duty_cycle_percent);
 }
 
+/**
+ * @brief Stop the motor (equivalent to setDutyCycle(0) or setDutyCycle())
+ * 
+ */
 void Motor::stop()
 {
     setDutyCycle(0);
